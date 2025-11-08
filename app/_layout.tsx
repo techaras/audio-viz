@@ -1,6 +1,7 @@
-import { ClerkProvider } from '@clerk/clerk-expo'
+import { ClerkProvider, useAuth } from '@clerk/clerk-expo'
 import { tokenCache } from '@clerk/clerk-expo/token-cache'
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ConvexProviderWithClerk } from "convex/react-clerk";
+import { ConvexReactClient } from "convex/react";
 import { Stack } from "expo-router";
 
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
@@ -10,12 +11,14 @@ const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
 export default function RootLayout() {
   return (
     <ClerkProvider 
+      tokenCache={tokenCache} 
       publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
-      tokenCache={tokenCache}
     >
-      <ConvexProvider client={convex}>
-        <Stack />
-      </ConvexProvider>
+      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+        <Stack>
+          <Stack.Screen name="index" />
+        </Stack>
+      </ConvexProviderWithClerk>
     </ClerkProvider>
   );
 }
