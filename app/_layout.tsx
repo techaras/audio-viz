@@ -9,11 +9,12 @@ const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
 
 export default function RootLayout() {
   return (
-    <ClerkProvider tokenCache={tokenCache}>
+    <ClerkProvider 
+      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+      tokenCache={tokenCache}
+    >
       <ConvexProvider client={convex}>
-        <Stack>
-          <Stack.Screen name="index" />
-        </Stack>
+        <Stack />
       </ConvexProvider>
     </ClerkProvider>
   );
