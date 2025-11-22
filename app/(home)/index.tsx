@@ -1,5 +1,6 @@
 import { Text, View, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Image } from 'expo-image'
 import { SignOutButton } from '@/app/components/SignOutButton'
 import { Authenticated, Unauthenticated, AuthLoading } from 'convex/react'
 import { useRouter } from 'expo-router'
@@ -27,9 +28,13 @@ export default function Page() {
             </Text>
           </View>
 
-          {/* Placeholder Image */}
+          {/* Image */}
           <View className="flex-1 justify-center items-center">
-            <View className="w-64 h-64 bg-gray-300 rounded-lg" />
+            <Image
+              source={require('@/assets/images/app-drawing-unauthorised.png')}
+              style={{ width: 348, height: 348 }}
+              contentFit="contain"
+            />
           </View>
 
           {/* Buttons */}
