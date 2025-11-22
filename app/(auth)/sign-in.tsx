@@ -2,6 +2,7 @@ import { useSignIn } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Image } from 'expo-image'
 import React from 'react'
 
 export default function Page() {
@@ -40,27 +41,68 @@ export default function Page() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View>
-        <Text>Sign in</Text>
-        <TextInput
-          autoCapitalize="none"
-          value={emailAddress}
-          placeholder="Enter email"
-          onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-        />
-        <TextInput
-          value={password}
-          placeholder="Enter password"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        />
-        <TouchableOpacity onPress={onSignInPress}>
-          <Text>Continue</Text>
+    <SafeAreaView className="flex-1 bg-unprotected-bg">
+      <View className="flex-1 px-8">
+        {/* Image */}
+        <View className="items-center mt-8 mb-12">
+          <Image
+            source={require('@/assets/images/app-drawing-unauthorised.png')}
+            style={{ width: 348, height: 348 }}
+            contentFit="contain"
+          />
+        </View>
+
+        {/* Email */}
+        <View className="mb-6">
+          <Text className="text-text-label mb-2" style={{ fontSize: 16, fontFamily: 'OpenSans_400Regular' }}>
+            Email
+          </Text>
+          <TextInput
+            autoCapitalize="none"
+            value={emailAddress}
+            placeholder="Your email address..."
+            placeholderTextColor="#777873"
+            onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+            className="bg-input-unprotected-bg px-4 py-4 rounded-2xl"
+            style={{ fontSize: 16, fontFamily: 'OpenSans_400Regular' }}
+          />
+        </View>
+
+        {/* Password */}
+        <View className="mb-8">
+          <Text className="text-text-label mb-2" style={{ fontSize: 16, fontFamily: 'OpenSans_400Regular' }}>
+            Password
+          </Text>
+          <TextInput
+            value={password}
+            placeholder="Your password..."
+            placeholderTextColor="#777873"
+            secureTextEntry={true}
+            onChangeText={(password) => setPassword(password)}
+            className="bg-input-unprotected-bg px-4 py-4 rounded-2xl"
+            style={{ fontSize: 16, fontFamily: 'OpenSans_400Regular' }}
+          />
+        </View>
+
+        {/* Login Button */}
+        <TouchableOpacity
+          onPress={onSignInPress}
+          className="bg-button-primary-bg py-4 rounded-full mb-6"
+        >
+          <Text className="text-white text-center text-lg font-semibold">
+            Log In
+          </Text>
         </TouchableOpacity>
-        <View style={{ display: 'flex', flexDirection: 'row', gap: 3 }}>
+
+        {/* Sign up link */}
+        <View className="flex-row justify-center gap-2">
+          <Text className="text-text-label" style={{ fontSize: 16, fontFamily: 'OpenSans_400Regular' }}>
+            Dont have an account?
+          </Text>
           <Link href="/sign-up">
-            <Text>Sign up</Text>
+            <Text className="text-black" style={{ fontSize: 16, fontFamily: 'OpenSans_600SemiBold' }}>
+              Sign up
+            </Text>
           </Link>
         </View>
       </View>
