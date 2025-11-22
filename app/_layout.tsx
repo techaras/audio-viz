@@ -1,3 +1,4 @@
+import "@/global.css";
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo'
 import { tokenCache } from '@clerk/clerk-expo/token-cache'
 import { ConvexProviderWithClerk } from "convex/react-clerk";
