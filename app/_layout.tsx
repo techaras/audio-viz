@@ -30,9 +30,7 @@ export default function RootLayout() {
         publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
       >
         <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="index" />
-          </Stack>
+          <Stack screenOptions={{ headerShown: false }} />
         </ConvexProviderWithClerk>
       </ClerkProvider>
     </SafeAreaProvider>

@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Image } from 'expo-image'
-import { SignOutButton } from '@/app/components/SignOutButton'
+import { SignOutButton } from '@/components/SignOutButton'
 import { Authenticated, Unauthenticated, AuthLoading } from 'convex/react'
 import { useRouter } from 'expo-router'
 
