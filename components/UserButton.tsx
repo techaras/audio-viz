@@ -12,7 +12,7 @@ export const UserButton = () => {
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <View className="w-12 h-12 rounded-full overflow-hidden">
+      <View className="w-12 h-12 rounded-full overflow-hidden items-center justify-center">
         {user?.imageUrl ? (
           <Image
             source={{ uri: user.imageUrl }}
