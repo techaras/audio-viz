@@ -1,7 +1,7 @@
 import { Text, View, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Image } from 'expo-image'
-import { SignOutButton } from '@/components/SignOutButton'
+import { AuthenticatedHome } from '@/components/AuthenticatedHome'
 import { Authenticated, Unauthenticated, AuthLoading } from 'convex/react'
 import { useRouter } from 'expo-router'
 
@@ -15,8 +15,7 @@ export default function Page() {
       </AuthLoading>
       
       <Authenticated>
-        <Text>Welcome! You are signed in.</Text>
-        <SignOutButton />
+        <AuthenticatedHome />
       </Authenticated>
       
       <Unauthenticated>
