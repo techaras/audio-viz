@@ -44,8 +44,31 @@ export const AuthenticatedHome = () => {
         <UserButton />
       </View>
 
-      {/* Record Button - Centered */}
-      <View className="flex-1 items-center justify-center mb-10">
+      {/* Tagline */}
+      <View className="px-6 mt-8">
+        <Text 
+          style={{ 
+            fontSize: 38, 
+            fontFamily: 'OpenSans_300Light',
+            color: '#010200',
+            lineHeight: 42
+          }}
+        >
+          Create amazing art with the sound of your voice
+        </Text>
+      </View>
+
+      {/* Record Button - Absolutely positioned and centered */}
+      <View 
+        className="items-center justify-center"
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: 0,
+          right: 0,
+          transform: [{ translateY: -75 }] // Half of button height (150/2) to center it
+        }}
+      >
         <RecordButton />
       </View>
     </View>
