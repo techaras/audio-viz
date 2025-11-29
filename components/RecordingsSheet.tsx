@@ -6,9 +6,8 @@ import { Image } from 'expo-image'
 export const RecordingsSheet = () => {
   const bottomSheetRef = useRef<BottomSheet>(null)
   
-  // Define snap points as percentages of screen height
-  // 25% gives us approximately 250-300px on most phones
-  const snapPoints = useMemo(() => ['25%'], [])
+  // Increased to give more space
+  const snapPoints = useMemo(() => ['40%'], [])
 
   return (
     <BottomSheet
@@ -16,24 +15,27 @@ export const RecordingsSheet = () => {
       index={0}
       snapPoints={snapPoints}
       enablePanDownToClose={false}
+      enableHandlePanningGesture={false}
       backgroundStyle={{
         backgroundColor: '#14171F', // button-primary-bg
+        borderRadius: 24,
       }}
       handleIndicatorStyle={{
         backgroundColor: '#4B4B5F', // slider-indicator
+        width: 150,
       }}
     >
       <BottomSheetView style={{ flex: 1, backgroundColor: '#14171F' }}>
         <View className="flex-1 items-center justify-center">
-          {/* Image */}
+          {/* Image with top margin */}
           <Image
             source={require('@/assets/images/undraw_stars_5pgw 2.png')}
-            style={{ width: 200, height: 200 }}
+            style={{ width: 200, height: 150, marginTop: 16 }}
             contentFit="contain"
           />
           
-          {/* Text */}
-          <Text className="text-white font-medium mt-4" style={{ fontSize: 18 }}>
+          {/* Text with bottom margin */}
+          <Text className="text-white font-medium mt-6 mb-6" style={{ fontSize: 22 }}>
             Such Empty
           </Text>
         </View>
