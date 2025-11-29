@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native'
 import { useUser } from '@clerk/clerk-expo'
 import { UserButton } from '@/components/UserButton'
+import { RecordButton } from '@/components/RecordButton'
 
 export const AuthenticatedHome = () => {
   const { isSignedIn, user, isLoaded } = useUser()
@@ -41,6 +42,11 @@ export const AuthenticatedHome = () => {
         
         {/* User Button */}
         <UserButton />
+      </View>
+
+      {/* Record Button - Centered */}
+      <View className="flex-1 items-center justify-center mb-10">
+        <RecordButton />
       </View>
     </View>
   )
