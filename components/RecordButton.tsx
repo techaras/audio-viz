@@ -7,22 +7,34 @@ export const RecordButton = () => {
   }
 
   return (
-    <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
+    <View className="items-center justify-center">
+      {/* Decorative stroke circle */}
       <View 
-        className="items-center justify-center rounded-full"
+        className="absolute rounded-full border-2 border-accent-ring-light"
         style={{ 
-          width: 150, 
-          height: 150, 
-          backgroundColor: '#FF4444' 
+          width: 200, 
+          height: 200,
         }}
-      >
-        <Text 
-          className="text-white font-medium"
-          style={{ fontSize: 20 }}
+      />
+      
+      {/* Record button */}
+      <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
+        <View 
+          className="items-center justify-center rounded-full"
+          style={{ 
+            width: 150, 
+            height: 150, 
+            backgroundColor: '#FF4444' 
+          }}
         >
-          Record
-        </Text>
-      </View>
-    </TouchableOpacity>
+          <Text 
+            className="text-white font-medium"
+            style={{ fontSize: 20 }}
+          >
+            Record
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   )
 }
