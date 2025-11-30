@@ -38,6 +38,12 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
     >
       <BottomSheetView style={{ flex: 1, backgroundColor: '#14171F' }}>
         <View className="flex-1 justify-end items-center pb-8">
+          {/* Placeholder */}
+          <View 
+            className="bg-gray-700 mb-8 rounded-3xl"
+            style={{ width: 350, height: 520 }}
+          />
+
           {/* Title */}
           <Text 
             className="text-text-title-dark mb-4"
