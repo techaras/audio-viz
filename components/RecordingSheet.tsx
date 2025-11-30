@@ -1,6 +1,6 @@
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 import { useRef, useMemo, forwardRef, useImperativeHandle } from 'react'
-import { View } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 
 export interface RecordingSheetRef {
   open: () => void
@@ -37,8 +37,34 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
       }}
     >
       <BottomSheetView style={{ flex: 1, backgroundColor: '#14171F' }}>
-        <View className="flex-1">
-          {/* Content will go here */}
+        <View className="flex-1 justify-end items-center pb-8">
+          {/* Title */}
+          <Text 
+            className="text-text-title-dark mb-4"
+            style={{ fontSize: 24, fontFamily: 'OpenSans_600SemiBold' }}
+          >
+            New Recording 3
+          </Text>
+
+          {/* Timer */}
+          <Text 
+            className="text-text-secondary-dark mb-8"
+            style={{ fontSize: 20, fontFamily: 'OpenSans_400Regular' }}
+          >
+            02:03:38
+          </Text>
+
+          {/* Stop Button with Stroke */}
+          <View 
+            className="border-2 rounded-full border-text-muted-dark items-center justify-center"
+            style={{ width: 96, height: 96 }}
+          >
+            <TouchableOpacity 
+              className="bg-accent-red-dark"
+              style={{ width: 48, height: 48, borderRadius: 12 }}
+              activeOpacity={0.8}
+            />
+          </View>
         </View>
       </BottomSheetView>
     </BottomSheet>
