@@ -37,13 +37,13 @@ export const UserProfilePopup = ({ onSignOut }: UserProfilePopupProps) => {
         <View className="flex-1">
           <Text 
             className="text-text-title-dark mb-1" 
-            style={{ fontSize: 18, fontFamily: 'OpenSans_600SemiBold' }}
+            style={{ fontSize: 24, fontFamily: 'OpenSans_600SemiBold' }}
           >
             {user?.firstName} {user?.lastName}
           </Text>
           <Text 
             className="text-text-secondary-dark" 
-            style={{ fontSize: 14, fontFamily: 'OpenSans_400Regular' }}
+            style={{ fontSize: 16, fontFamily: 'OpenSans_400Regular' }}
           >
             {user?.primaryEmailAddress?.emailAddress}
           </Text>
@@ -54,12 +54,12 @@ export const UserProfilePopup = ({ onSignOut }: UserProfilePopupProps) => {
       <TouchableOpacity
         onPress={onSignOut}
         className="py-3 rounded-full"
-        style={{ backgroundColor: '#2A2D3A' }}
+        style={{ backgroundColor: '#232A33' }}
       >
         <Text 
           className="text-center" 
           style={{ 
-            fontSize: 16, 
+            fontSize: 20, 
             fontFamily: 'OpenSans_600SemiBold',
             color: '#FF6363'
           }}
