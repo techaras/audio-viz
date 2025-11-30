@@ -14,7 +14,7 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     open: () => {
-      bottomSheetRef.current?.snapToIndex(0)
+      bottomSheetRef.current?.expand()
     },
     close: () => {
       bottomSheetRef.current?.close()
@@ -24,15 +24,15 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
   return (
     <BottomSheet
       ref={bottomSheetRef}
-      index={-1} // Start closed
+      index={-1}
       snapPoints={snapPoints}
       enablePanDownToClose={true}
       backgroundStyle={{
-        backgroundColor: '#14171F', // slider-bg
+        backgroundColor: '#14171F',
         borderRadius: 24,
       }}
       handleIndicatorStyle={{
-        backgroundColor: '#4B4B5F', // slider-indicator
+        backgroundColor: '#4B4B5F',
         width: 150,
       }}
     >
