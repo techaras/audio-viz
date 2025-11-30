@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, useWindowDimensions } from 'react-native'
 import { Image } from 'expo-image'
 import { useUser } from '@clerk/clerk-expo'
 
@@ -8,9 +8,10 @@ interface UserProfilePopupProps {
 
 export const UserProfilePopup = ({ onSignOut }: UserProfilePopupProps) => {
   const { user } = useUser()
+  const { width } = useWindowDimensions()
 
   return (
-    <View className="bg-slider-bg rounded-3xl p-4" style={{ width: 280 }}>
+    <View className="bg-slider-bg rounded-3xl p-4" style={{ width: width - 32 }}>
       {/* User Info Section */}
       <View className="flex-row items-center mb-4">
         {/* Avatar */}

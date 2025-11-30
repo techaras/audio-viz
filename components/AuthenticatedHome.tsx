@@ -1,9 +1,9 @@
-import { Text, View } from 'react-native'
+import { Text, View, useWindowDimensions } from 'react-native'
 import { useUser, useClerk } from '@clerk/clerk-expo'
 import { UserButton } from '@/components/UserButton'
 import { RecordButton } from '@/components/RecordButton'
 import { UserProfilePopup } from '@/components/UserProfilePopup'
-import Popover from 'react-native-popover-view'
+import Popover, { Rect } from 'react-native-popover-view'
 import { useRef, useState } from 'react'
 import * as Linking from 'expo-linking'
 
@@ -12,6 +12,7 @@ export const AuthenticatedHome = () => {
   const { signOut } = useClerk()
   const [showPopover, setShowPopover] = useState(false)
   const userButtonRef = useRef<View>(null)
+  const { width } = useWindowDimensions()
 
   const handleSignOut = async () => {
     try {
@@ -61,12 +62,13 @@ export const AuthenticatedHome = () => {
         <Popover
           isVisible={showPopover}
           onRequestClose={() => setShowPopover(false)}
-          from={userButtonRef as any}
-          arrowSize={{ width: 0, height: 0, }}
+          from={new Rect(width / 2, 70, 0, 0)}
+          arrowSize={{ width: 0, height: 0 }}
           popoverStyle={{
             borderRadius: 24,
             backgroundColor: '#14171F',
           }}
+          backgroundStyle={{ backgroundColor: 'transparent' }}
         >
           <UserProfilePopup onSignOut={handleSignOut} />
         </Popover>
