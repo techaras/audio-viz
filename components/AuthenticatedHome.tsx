@@ -1,10 +1,27 @@
 import { Text, View } from 'react-native'
-import { useUser } from '@clerk/clerk-expo'
+import { useUser, useClerk } from '@clerk/clerk-expo'
 import { UserButton } from '@/components/UserButton'
 import { RecordButton } from '@/components/RecordButton'
+import { UserProfilePopup } from '@/components/UserProfilePopup'
+import Popover from 'react-native-popover-view'
+import { useRef, useState } from 'react'
+import * as Linking from 'expo-linking'
 
 export const AuthenticatedHome = () => {
   const { isSignedIn, user, isLoaded } = useUser()
+  const { signOut } = useClerk()
+  const [showPopover, setShowPopover] = useState(false)
+  const userButtonRef = useRef<View>(null)
+
+  const handleSignOut = async () => {
+    try {
+      setShowPopover(false)
+      await signOut()
+      Linking.openURL(Linking.createURL('/'))
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2))
+    }
+  }
 
   // Handle loading state
   if (!isLoaded) {
@@ -40,8 +57,24 @@ export const AuthenticatedHome = () => {
           Hello, {user.firstName} 👋
         </Text>
         
-        {/* User Button */}
-        <UserButton />
+        {/* User Button with Popover */}
+        <Popover
+          isVisible={showPopover}
+          onRequestClose={() => setShowPopover(false)}
+          from={userButtonRef as any}
+          arrowSize={{ width: 0, height: 0, }}
+          popoverStyle={{
+            borderRadius: 24,
+            backgroundColor: '#14171F',
+          }}
+        >
+          <UserProfilePopup onSignOut={handleSignOut} />
+        </Popover>
+
+        <UserButton 
+          ref={userButtonRef}
+          onPress={() => setShowPopover(true)} 
+        />
       </View>
 
       {/* Tagline */}

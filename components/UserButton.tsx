@@ -1,18 +1,21 @@
 import { useUser } from '@clerk/clerk-expo'
 import { Image } from 'expo-image'
 import { View, TouchableOpacity, Text } from 'react-native'
+import { forwardRef } from 'react'
 
-export const UserButton = () => {
+interface UserButtonProps {
+  onPress: () => void
+}
+
+export const UserButton = forwardRef<View, UserButtonProps>(({ onPress }, ref) => {
   const { user } = useUser()
 
-  const handlePress = () => {
-    // TODO: Open a menu or navigate to profile page
-    console.log('User button pressed')
-  }
-
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <View className="w-12 h-12 rounded-full overflow-hidden items-center justify-center">
+    <TouchableOpacity onPress={onPress}>
+      <View 
+        ref={ref}
+        className="w-12 h-12 rounded-full overflow-hidden items-center justify-center"
+      >
         {user?.imageUrl ? (
           <Image
             source={{ uri: user.imageUrl }}
@@ -32,4 +35,6 @@ export const UserButton = () => {
       </View>
     </TouchableOpacity>
   )
-}
+})
+
+UserButton.displayName = 'UserButton'
