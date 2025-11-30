@@ -7,7 +7,11 @@ import Popover, { Rect } from 'react-native-popover-view'
 import { useRef, useState } from 'react'
 import * as Linking from 'expo-linking'
 
-export const AuthenticatedHome = () => {
+interface AuthenticatedHomeProps {
+  onRecordPress: () => void
+}
+
+export const AuthenticatedHome = ({ onRecordPress }: AuthenticatedHomeProps) => {
   const { isSignedIn, user, isLoaded } = useUser()
   const { signOut } = useClerk()
   const [showPopover, setShowPopover] = useState(false)
@@ -104,7 +108,7 @@ export const AuthenticatedHome = () => {
           transform: [{ translateY: -75 }] // Half of button height (150/2) to center it
         }}
       >
-        <RecordButton />
+        <RecordButton onPress={onRecordPress} />
       </View>
     </View>
   )

@@ -3,11 +3,18 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Image } from 'expo-image'
 import { AuthenticatedHome } from '@/components/AuthenticatedHome'
 import { RecordingsSheet } from '@/components/RecordingsSheet'
+import { RecordingSheet, RecordingSheetRef } from '@/components/RecordingSheet'
 import { Authenticated, Unauthenticated, AuthLoading } from 'convex/react'
 import { useRouter } from 'expo-router'
+import { useRef } from 'react'
 
 export default function Page() {
   const router = useRouter()
+  const recordingSheetRef = useRef<RecordingSheetRef>(null)
+
+  const handleRecordPress = () => {
+    recordingSheetRef.current?.open()
+  }
 
   return (
     <>
@@ -17,7 +24,7 @@ export default function Page() {
         </AuthLoading>
         
         <Authenticated>
-          <AuthenticatedHome />
+          <AuthenticatedHome onRecordPress={handleRecordPress} />
         </Authenticated>
         
         <Unauthenticated>
@@ -62,9 +69,10 @@ export default function Page() {
         </Unauthenticated>
       </SafeAreaView>
 
-      {/* Render RecordingsSheet outside SafeAreaView so it extends to screen edges */}
+      {/* Render sheets outside SafeAreaView so they extend to screen edges */}
       <Authenticated>
         <RecordingsSheet />
+        <RecordingSheet ref={recordingSheetRef} />
       </Authenticated>
     </>
   )
