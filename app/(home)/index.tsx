@@ -4,6 +4,7 @@ import { Image } from 'expo-image'
 import { AuthenticatedHome } from '@/components/AuthenticatedHome'
 import { RecordingsSheet } from '@/components/RecordingsSheet'
 import { RecordingSheet, RecordingSheetRef } from '@/components/RecordingSheet'
+import { RecordingPreparer } from '@/components/RecordingPreparer'
 import { Authenticated, Unauthenticated, AuthLoading } from 'convex/react'
 import { useRouter } from 'expo-router'
 import { useRef } from 'react'
@@ -24,7 +25,9 @@ export default function Page() {
         </AuthLoading>
         
         <Authenticated>
-          <AuthenticatedHome onRecordPress={handleRecordPress} />
+          <RecordingPreparer>
+            <AuthenticatedHome onRecordPress={handleRecordPress} />
+          </RecordingPreparer>
         </Authenticated>
         
         <Unauthenticated>
