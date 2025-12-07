@@ -1,5 +1,5 @@
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
-import { useRef, useMemo, forwardRef, useImperativeHandle } from 'react'
+import { useRef, useMemo, forwardRef, useImperativeHandle, useEffect } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 import { useRecording } from '@/hooks/useRecording'
 
@@ -18,6 +18,7 @@ const formatDuration = (seconds: number): string => {
 
 export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
   const bottomSheetRef = useRef<BottomSheet>(null)
+  const wasRecordingRef = useRef(false)
   const { isRecording, duration, start, stop } = useRecording()
   
   const snapPoints = useMemo(() => ['90%'], [])
@@ -50,6 +51,16 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
     console.log('RecordingSheet: Stop button pressed')
     await stop()
   }
+
+  // Auto-close sheet when recording stops
+  useEffect(() => {
+    if (wasRecordingRef.current && !isRecording) {
+      // Recording just stopped, close the sheet
+      console.log('RecordingSheet: Recording stopped, closing sheet')
+      bottomSheetRef.current?.close()
+    }
+    wasRecordingRef.current = isRecording
+  }, [isRecording])
 
   console.log('RecordingSheet: Rendering. isRecording:', isRecording, 'duration:', duration)
 
@@ -93,20 +104,18 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
             {formatDuration(duration)}
           </Text>
 
-          {/* Stop Button with Stroke - Only show when recording */}
-          {isRecording && (
-            <View 
-              className="border-2 rounded-full border-text-muted-dark items-center justify-center"
-              style={{ width: 96, height: 96 }}
-            >
-              <TouchableOpacity 
-                onPress={handleStopPress}
-                className="bg-accent-red-dark"
-                style={{ width: 48, height: 48, borderRadius: 12 }}
-                activeOpacity={0.8}
-              />
-            </View>
-          )}
+          {/* Stop Button with Stroke - Always visible */}
+          <View 
+            className="border-2 rounded-full border-text-muted-dark items-center justify-center"
+            style={{ width: 96, height: 96 }}
+          >
+            <TouchableOpacity 
+              onPress={handleStopPress}
+              className="bg-accent-red-dark"
+              style={{ width: 48, height: 48, borderRadius: 12 }}
+              activeOpacity={0.8}
+            />
+          </View>
         </View>
       </BottomSheetView>
     </BottomSheet>
