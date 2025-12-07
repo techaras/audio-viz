@@ -1,25 +1,57 @@
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet'
 import { useRef, useMemo, forwardRef, useImperativeHandle } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
+import { useRecording } from '@/hooks/useRecording'
 
 export interface RecordingSheetRef {
   open: () => void
   close: () => void
 }
 
+const formatDuration = (seconds: number): string => {
+  const hrs = Math.floor(seconds / 3600)
+  const mins = Math.floor((seconds % 3600) / 60)
+  const secs = seconds % 60
+  
+  return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+}
+
 export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
   const bottomSheetRef = useRef<BottomSheet>(null)
+  const { isRecording, duration, start, stop } = useRecording()
   
   const snapPoints = useMemo(() => ['90%'], [])
 
   useImperativeHandle(ref, () => ({
     open: () => {
+      console.log('RecordingSheet: open() called')
       bottomSheetRef.current?.expand()
     },
     close: () => {
+      console.log('RecordingSheet: close() called')
       bottomSheetRef.current?.close()
     }
   }))
+
+  const handleSheetChange = async (index: number) => {
+    console.log('RecordingSheet: handleSheetChange called with index:', index)
+    console.log('RecordingSheet: isRecording:', isRecording)
+    
+    // When sheet opens (index becomes 1 for our single snap point), start recording
+    if (index >= 0 && !isRecording) {
+      console.log('RecordingSheet: Conditions met, calling start()')
+      await start()
+    } else {
+      console.log('RecordingSheet: Conditions NOT met. index:', index, 'isRecording:', isRecording)
+    }
+  }
+
+  const handleStopPress = async () => {
+    console.log('RecordingSheet: Stop button pressed')
+    await stop()
+  }
+
+  console.log('RecordingSheet: Rendering. isRecording:', isRecording, 'duration:', duration)
 
   return (
     <BottomSheet
@@ -27,6 +59,7 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
       index={-1}
       snapPoints={snapPoints}
       enablePanDownToClose={true}
+      onChange={handleSheetChange}
       backgroundStyle={{
         backgroundColor: '#14171F',
         borderRadius: 24,
@@ -49,7 +82,7 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
             className="text-text-title-dark mb-4"
             style={{ fontSize: 24, fontFamily: 'OpenSans_600SemiBold' }}
           >
-            New Recording 3
+            New Recording
           </Text>
 
           {/* Timer */}
@@ -57,20 +90,23 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
             className="text-text-secondary-dark mb-8"
             style={{ fontSize: 20, fontFamily: 'OpenSans_400Regular' }}
           >
-            02:03:38
+            {formatDuration(duration)}
           </Text>
 
-          {/* Stop Button with Stroke */}
-          <View 
-            className="border-2 rounded-full border-text-muted-dark items-center justify-center"
-            style={{ width: 96, height: 96 }}
-          >
-            <TouchableOpacity 
-              className="bg-accent-red-dark"
-              style={{ width: 48, height: 48, borderRadius: 12 }}
-              activeOpacity={0.8}
-            />
-          </View>
+          {/* Stop Button with Stroke - Only show when recording */}
+          {isRecording && (
+            <View 
+              className="border-2 rounded-full border-text-muted-dark items-center justify-center"
+              style={{ width: 96, height: 96 }}
+            >
+              <TouchableOpacity 
+                onPress={handleStopPress}
+                className="bg-accent-red-dark"
+                style={{ width: 48, height: 48, borderRadius: 12 }}
+                activeOpacity={0.8}
+              />
+            </View>
+          )}
         </View>
       </BottomSheetView>
     </BottomSheet>
