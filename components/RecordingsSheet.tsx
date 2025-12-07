@@ -29,7 +29,7 @@ export const RecordingsSheet = () => {
         <View className="flex-1 items-center justify-center">
           {/* Image with top margin */}
           <Image
-            source={require('@/assets/images/undraw_stars_5pgw 2.png')}
+            source={require('@/assets/images/undraw-stars-5pgw-2.png')}
             style={{ width: 200, height: 150, marginTop: 16 }}
             contentFit="contain"
           />
