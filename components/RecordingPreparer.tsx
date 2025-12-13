@@ -1,20 +1,32 @@
 import { useEffect } from 'react'
-import { useRecording } from '@/hooks/useRecording'
+import { useSharedAudioRecorder } from '@siteed/expo-audio-studio'
 
 interface RecordingPreparerProps {
   children: React.ReactNode
 }
 
-export const RecordingPreparer = ({ children }: RecordingPreparerProps) => {
-  const { prepare } = useRecording()
+const RECORDING_CONFIG = {
+  sampleRate: 44100,
+  numberOfChannels: 1,
+  bitDepth: 16,
+  outputFormat: 'wav',
+} as const
 
-  // Prepare recording as soon as this component mounts
+export const RecordingPreparer = ({ children }: RecordingPreparerProps) => {
+  const { prepareRecording } = useSharedAudioRecorder()
+
   useEffect(() => {
     const initRecording = async () => {
-      await prepare()
+      try {
+        console.log('Preparing recording...')
+        await prepareRecording(RECORDING_CONFIG)
+        console.log('Recording prepared successfully')
+      } catch (error) {
+        console.error('Failed to prepare recording:', error)
+      }
     }
     initRecording()
-  }, [prepare])
+  }, [prepareRecording])
 
   return <>{children}</>
 }

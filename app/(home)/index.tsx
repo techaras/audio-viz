@@ -1,4 +1,5 @@
 import { Text, View, TouchableOpacity } from 'react-native'
+import { AudioRecorderProvider } from '@siteed/expo-audio-studio'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Image } from 'expo-image'
 import { AuthenticatedHome } from '@/components/AuthenticatedHome'
@@ -18,7 +19,7 @@ export default function Page() {
   }
 
   return (
-    <>
+    <AudioRecorderProvider>
       <SafeAreaView className="flex-1 bg-unprotected-bg">
         <AuthLoading>
           <Text>Loading...</Text>
@@ -77,6 +78,6 @@ export default function Page() {
         <RecordingsSheet />
         <RecordingSheet ref={recordingSheetRef} />
       </Authenticated>
-    </>
+    </AudioRecorderProvider>
   )
 }
