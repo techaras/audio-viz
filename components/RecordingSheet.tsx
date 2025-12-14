@@ -19,7 +19,7 @@ const formatDuration = (seconds: number): string => {
 export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
   const bottomSheetRef = useRef<BottomSheet>(null)
   const wasRecordingRef = useRef(false)
-  const { isRecording, duration, start, stop } = useRecording()
+  const { isRecording, isStreaming, duration, start, stop } = useRecording()
   
   const snapPoints = useMemo(() => ['90%'], [])
 
@@ -62,7 +62,7 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
     wasRecordingRef.current = isRecording
   }, [isRecording])
 
-  console.log('RecordingSheet: Rendering. isRecording:', isRecording, 'duration:', duration)
+  console.log('RecordingSheet: Rendering. isRecording:', isRecording, 'isStreaming:', isStreaming, 'duration:', duration)
 
   return (
     <BottomSheet
@@ -90,11 +90,23 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
 
           {/* Title */}
           <Text 
-            className="text-text-title-dark mb-4"
+            className="text-text-title-dark mb-2"
             style={{ fontSize: 24, fontFamily: 'OpenSans_600SemiBold' }}
           >
             New Recording
           </Text>
+
+          {/* Streaming Indicator */}
+          {isStreaming && (
+            <View className="mb-4">
+              <Text 
+                className="text-text-secondary-dark"
+                style={{ fontSize: 16, fontFamily: 'OpenSans_400Regular' }}
+              >
+                🔴 Streaming Active
+              </Text>
+            </View>
+          )}
 
           {/* Timer */}
           <Text 
