@@ -96,18 +96,6 @@ export const RecordingSheet = forwardRef<RecordingSheetRef>((props, ref) => {
             New Recording
           </Text>
 
-          {/* Streaming Indicator */}
-          {isStreaming && (
-            <View className="mb-4">
-              <Text 
-                className="text-text-secondary-dark"
-                style={{ fontSize: 16, fontFamily: 'OpenSans_400Regular' }}
-              >
-                🔴 Streaming Active
-              </Text>
-            </View>
-          )}
-
           {/* Timer */}
           <Text 
             className="text-text-secondary-dark mb-8"
